@@ -24,10 +24,11 @@ public class GridPanel extends JPanel {
         gridBoxes = new JLabel[9][9];
         gridData = new GridData();
         this.setLayout(new GridLayout(9,9));
+        //gridData.setValue(6,2,'3');
         this.makeGrid();
         System.out.println("made it before fill");
         this.fillGrid();
-        System.out.println("made it after fill");
+        System.out.println("made it after fill");        
     }
     
     public void makeGrid() {

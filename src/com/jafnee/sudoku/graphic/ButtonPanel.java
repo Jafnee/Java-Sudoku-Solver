@@ -62,6 +62,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             System.out.println(file);
             gridpanel.test();
             gridpanel.gridData.loadGrid(file);
+            gridpanel.fillGrid();
             
         }
     }

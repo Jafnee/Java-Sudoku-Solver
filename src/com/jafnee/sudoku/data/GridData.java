@@ -5,6 +5,7 @@
 package com.jafnee.sudoku.data;
 
 import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -14,13 +15,12 @@ public class GridData {
     char grid[][],temps[][];
     char test;
     BufferedReader br;
+    Scanner myScanner;
     
     public GridData() {
         grid = new char[9][9];
         this.setGrid();
         temps = new char [81][81];
-        test = '8';
-        this.setValue(3, 7, test);
         System.out.println("got to before set grid");
         System.out.println("got to after set grid");
     }
@@ -60,12 +60,23 @@ public class GridData {
         temps[i][j] = v;
     }
     
+    public void Transfer(int r, String s) {
+        int i;
+        char c1;
+        for (i=0;i<9;i++) {
+            c1 = s.charAt(i);
+            this.setValue(i, r, c1);
+            
+        }
+    }
+    
     public void loadGrid(File file) throws FileNotFoundException, IOException {
         br = new BufferedReader(new FileReader(file));
+        char c1;
+        int j;
+        for (j=0;j<9;j++) {            
         String line = br.readLine();
-        while (line != null) {
-        System.out.println("loadGrid will load from"+file);
-            
+        this.Transfer(j, line);
         }
 
     }
