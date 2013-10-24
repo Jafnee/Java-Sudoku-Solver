@@ -24,11 +24,8 @@ public class GridPanel extends JPanel {
         gridBoxes = new JLabel[9][9];
         gridData = new GridData();
         this.setLayout(new GridLayout(9,9));
-        //gridData.setValue(6,2,'3');
         this.makeGrid();
-        System.out.println("made it before fill");
         this.fillGrid();
-        System.out.println("made it after fill");        
     }
     
     public void makeGrid() {
@@ -42,7 +39,9 @@ public class GridPanel extends JPanel {
                 gridBoxes[i][j].setFont(gridBoxes[i][j].getFont().deriveFont(39.0f));
                 Border border = BorderFactory.createLineBorder(Color.BLACK,1);
                 gridBoxes[i][j].setBorder(border);
+                this.colourGrid(i, j);
                 this.add(gridBoxes[i][j]);
+                gridBoxes[i][j].setOpaque(true);
             }
         }
     }
@@ -50,24 +49,25 @@ public class GridPanel extends JPanel {
     public void setGridValue(int i, int j, char c) {
         String v = Character.toString(c);
         gridBoxes[i][j].setText(v);
-        
+    }
+    
+    public void colourGrid(int i, int j) {
+        if((i / 3 < 1 || i / 3 >= 2) && (j / 3 < 1 || j / 3 >= 2)
+                    || (i / 3 >= 1 && i / 3 < 2) && (j / 3 >= 1 && j / 3 < 2)) {
+                    gridBoxes[i][j].setBackground(Color.LIGHT_GRAY);
+                } else {
+                    gridBoxes[i][j].setBackground(Color.WHITE);
+                }
     }
     
     public void fillGrid(){
         int i,j;
         char value;
-        System.out.println("made it to start of fill");
         for (j=0;j<9;j++) {
             for (i=0;i<9;i++) {
-                System.out.println("made it to start of fill part 2");
                 value = gridData.getValue(i, j);
-                System.out.println("made it to mid of fill");
                 this.setGridValue(i,j,value);
             }
         }
-    }
-    
-    public void test() {
-        System.out.println("IT WORKS!");
     }
 }

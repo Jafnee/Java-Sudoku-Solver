@@ -12,28 +12,26 @@ import java.util.*;
  * @author Jafnee
  */
 public class GridData {
-    char grid[][],temps[][];
+    char grid[][];
     char test;
     BufferedReader br;
     Scanner myScanner;
+    Solver solver;
     
     public GridData() {
         grid = new char[9][9];
         this.setGrid();
-        temps = new char [81][81];
-        System.out.println("got to before set grid");
-        System.out.println("got to after set grid");
+        solver = new Solver();
+        solver.setGridData(this);
     }
     
     public void setGrid() {
         int i,j;
         for (j=0;j<9;j++)
             for (i=0;i<9;i++)
-                grid[i][j] = ' ';
-    }
-    
-    public char getTest() {
-        return test;
+                this.setValue(i,j,' ');
+                //grid[i][j] = ' ';
+                
     }
     
     public char getValue(int i, int j) {
@@ -50,14 +48,6 @@ public class GridData {
         for (j=0;j<9;j++)
             for (i=0;i<9;i++)
                 grid[i][j] = ' ';
-    }
-    
-    public char getTempsValue(int i, int j) {
-        return temps[i][j];
-    }
-    
-    public void setTempsValue(int i, int j, char v) {
-        temps[i][j] = v;
     }
     
     public void Transfer(int r, String s) {
@@ -78,6 +68,9 @@ public class GridData {
         String line = br.readLine();
         this.Transfer(j, line);
         }
-
+    }
+    
+    public Solver getSolver() {
+        return solver;
     }
 }

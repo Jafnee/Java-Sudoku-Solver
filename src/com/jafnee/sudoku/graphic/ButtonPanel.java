@@ -4,6 +4,7 @@
  */
 package com.jafnee.sudoku.graphic;
 
+import com.jafnee.sudoku.data.Solver;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -22,18 +23,21 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton load,solve,clear;
     JFileChooser chooser;
     GridPanel gridpanel;
+    String currentFile;
+    ContainerPanel panel;
+    Solver solver;
     
     public ButtonPanel() {
         load = new JButton("Load");
         solve = new JButton("Solve");
-        clear = new JButton("Clear");
-        this.setLayout(new GridLayout(0,3));
+        //clear = new JButton("Clear");
+        this.setLayout(new GridLayout(0,2));
         this.add(load);
         this.add(solve);
-        this.add(clear);
+        //this.add(clear);
         load.addActionListener(this);
         solve.addActionListener(this);
-        clear.addActionListener(this);
+        //clear.addActionListener(this);
     }
     
     @Override
@@ -47,27 +51,54 @@ public class ButtonPanel extends JPanel implements ActionListener {
             Logger.getLogger(ButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (e.getSource() == solve)
-            System.out.println("SOLVE");
-        if (e.getSource() == clear)
-            System.out.println("CLEAR");
+            this.startSolver();
+        //if (e.getSource() == clear)
+            //System.out.println("CLEAR");
     }
     
     public void loadFile() throws FileNotFoundException, IOException {
         chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("SUD Files","sud");
+        String filePath;
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".SUD Files","sud");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             System.out.println(file);
-            gridpanel.test();
             gridpanel.gridData.loadGrid(file);
             gridpanel.fillGrid();
+            filePath = file.getName();
+            this.setCurrentFile(filePath);
+            this.getContainerPanel().getMyFrame().setTitle("File loaded: "+this.getCurrentFile());
             
         }
     }
     
+    public void startSolver() {
+        this.getGridPanel().gridData.getSolver().Solve();
+    }
+    
     public void setGridPanel(GridPanel gp) {
         gridpanel = gp;
+    }
+    
+    public GridPanel getGridPanel() {
+        return gridpanel;
+    }
+    
+    public void setCurrentFile(String f) {
+        currentFile = f;
+    }
+    
+    public String getCurrentFile() {
+        return currentFile;
+    }
+    
+    public ContainerPanel getContainerPanel() {
+        return panel;
+    }
+    
+    public void setContainerPanel(ContainerPanel cp) {
+        panel = cp;
     }
 }

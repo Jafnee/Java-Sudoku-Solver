@@ -10,11 +10,13 @@ package com.jafnee.sudoku.graphic;
  */
 public class ContainerPanel extends javax.swing.JPanel {
 
+    MyFrame frame;
     /**
      * Creates new form ContainerPanel
      */
     public ContainerPanel() {
         initComponents();
+        buttonPanel1.setContainerPanel(this);
     }
 
     /**
@@ -50,7 +52,19 @@ public class ContainerPanel extends javax.swing.JPanel {
         buttonPanel1.setGridPanel(gridPanel1);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.jafnee.sudoku.graphic.ButtonPanel buttonPanel1;
+    public com.jafnee.sudoku.graphic.ButtonPanel buttonPanel1;
     private com.jafnee.sudoku.graphic.GridPanel gridPanel1;
     // End of variables declaration//GEN-END:variables
+ 
+    public ButtonPanel getButtonPanel() {
+        return buttonPanel1;
+    }
+    
+    public void setMyFrame(MyFrame myFrame) {
+        frame = myFrame;
+    }
+    
+    public MyFrame getMyFrame() {
+        return frame;
+    }
 }
