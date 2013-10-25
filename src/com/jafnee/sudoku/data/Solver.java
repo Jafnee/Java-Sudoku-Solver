@@ -4,24 +4,26 @@
  */
 package com.jafnee.sudoku.data;
 
-import javax.swing.JOptionPane;
-
-/**
+/**This class contains all the methods required a Sudoku puzzle.
+ * It will interact with the GridData class to get the solving completed.
  *
- * @author Jafnee
+ * @author Jafnee Jafnee
+ * @version 25/10/2013
  */
 public class Solver {
     char[] solutions;
-    char[][][] storedSolutions;
     GridData grid;
     int changes;
     boolean solved;
     
     public Solver () {
-       storedSolutions = new char[9][9][9];
     }
     
-    public void Solve() {
+    /**This method will begin solving the Sudoku grid, by using the multiple methods of solving one after the other.
+     * The solving methods contained will be repeated until the puzzle is solved or it can no longer advance.
+     * 
+     */
+    public void solve() {
          int i,j;
          char value;
          changes = 0;
@@ -42,18 +44,41 @@ public class Solver {
                 }
             }
         }
-       if (changes != 0) {
-           this.Solve();
-       }
-       for (j=0;j<9;j++) {
+       this.changesLoop();
+       this.hasBeenSolved();
+    }
+    
+    /**
+     * This method checks to see if any elements of the char array still contains blanks.
+     * If it has found blanks it will set the boolean solved variable to false.
+     */
+    public void hasBeenSolved() {
+        int i, j;
+        for (j=0;j<9;j++) {
            for (i=0;i<9;i++) {
                if (this.getGridData().getValue(i, j) == ' ') {
                    this.setSolved(false);
                }
            }
-       }
+        }
     }
     
+    /**
+     * This method checks if any changes were made to the char grid after running the solve() method.
+     * If changes were made it will run the solve() repeatedly until no changes were found.
+     */
+    public void changesLoop() {
+        if (changes !=0) {
+            this.solve();
+        }
+    }
+/**This method will check the possible values a square can have.
+ * If only a single value may be entered, it will enter that value.
+ * Any elements of the solution char array which have the value 'X' is deemed to not be a possible value for that square.
+ * 
+ * @param i i coordinate
+ * @param j j coordinate
+ */    
     public void fillDefinite(int i, int j) {
         int x,numberOfSolutions;
         char v,solution;
@@ -70,14 +95,19 @@ public class Solver {
                 grid.setValue(i, j, solution);
                 changes++;
             }
-        System.out.println("POSSIBLE SOLUTIONS FOR Grid ["+i+","+j+"]");
+        System.out.println("POSSIBLE SOLUTIONS FOR Grid ["+i+","+j+"]");//Shows the possible solution(s) each square can have
         for (int z=0;z<9;z++) {
             if (this.getSolution(z) != 'X') {
             System.out.println(this.getSolution(z));
             }
         }
     }
-    
+    /**This method will check the other values within it's 3x3 sub-grid.
+     * Any solutions eliminated will be replaced with a 'X' value.
+     * 
+     * @param i i coordinate
+     * @param j j coordinate
+     */
     public void ownSubGridCompare(int i, int j) {
         int tempI, tempI2, tempI3, tempJ, tempJ2, tempJ3, s;
         tempI = i/3;
@@ -97,6 +127,11 @@ public class Solver {
         }
     }
     
+    /**This method will check all the values within the same column.
+     * Any solutions eliminated will be replaced with a 'X' value.
+     * 
+     * @param i i coordinate to determine which column
+     */
     public void columnCompare(int i) {
         int j, s;        
         for (j=0;j<9;j++) {
@@ -108,6 +143,11 @@ public class Solver {
         }
     }
     
+    /**This method will check all values within the same row.
+     * Any solutions eliminated will be replaced with a 'X' value.
+     * 
+     * @param j j coordinate to determine which row
+     */
     public void rowCompare(int j) {
         int i, s;
         for (i=0;i<9;i++) {
@@ -119,6 +159,9 @@ public class Solver {
         }
     }
     
+    /**
+     * This method filles up the char[] array for the possible solutions of each square, with the char values of 1 to 9.
+     */
     public void fillSolutions() {
         int i,i2;
         char v;
@@ -128,17 +171,22 @@ public class Solver {
             this.setSolutions(i, v);
         }
     }
-    
+    /**This method set's the value of an element in the array of possible solutions.
+     * Is mostly used to change the value to 'X' to eliminate a possible solution.
+     * 
+     * @param i reference
+     * @param v char value to change to
+     */
     public void setSolutions(int i, char v) {
         solutions[i] = v;
     }
-    
+    /**This method returns the value of an element in the possible solutions array.
+     * 
+     * @param i reference
+     * @return char value held by the array
+     */
     public char getSolution(int i) {
         return solutions[i];
-    }
-    
-    public void rowFill() {
-        
     }
     
     public void setGridData(GridData gd) {
@@ -149,10 +197,18 @@ public class Solver {
         return grid;
     }
     
+    /**This method set's the variable to set whether the puzzle has been solved completely.
+     * 
+     * @param b boolean value to set for solved
+     */
     public void setSolved(boolean b) {
         solved = b;
     }
     
+    /**This method returns the boolean value of solved, to determine if the puzzle has been solved completely.
+     * 
+     * @return boolean value of solved
+     */
     public boolean getSolved() {
         return solved;
     }

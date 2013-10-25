@@ -92,7 +92,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
      * will give the appropriate message to the user.
      */
     public void startSolver() {
-        this.getGridPanel().gridData.getSolver().Solve();
+        this.getGridPanel().gridData.getSolver().solve();
         this.getGridPanel().fillGrid();
         if (getGridPanel().gridData.getSolver().getSolved() == true) {
             JOptionPane.showMessageDialog(null,"Has been fully solved","",JOptionPane.PLAIN_MESSAGE);
