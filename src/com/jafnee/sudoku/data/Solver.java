@@ -4,6 +4,8 @@
  */
 package com.jafnee.sudoku.data;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jafnee
@@ -12,6 +14,8 @@ public class Solver {
     char[] solutions;
     char[][][] storedSolutions;
     GridData grid;
+    int changes;
+    boolean solved;
     
     public Solver () {
        storedSolutions = new char[9][9][9];
@@ -20,12 +24,12 @@ public class Solver {
     public void Solve() {
          int i,j;
          char value;
+         changes = 0;
+         this.setSolved(true);
        for (j=0;j<9;j++) {
             for (i=0;i<9;i++) {
                 value = this.getGridData().getValue(i, j);
-//                System.out.println("Value at solve "+value);
                 if (value != ' ') {
-//                    System.out.println("already has a value: "+value);
                 }
                 else {
                     solutions = new char[9];
@@ -38,10 +42,19 @@ public class Solver {
                 }
             }
         }
+       if (changes != 0) {
+           this.Solve();
+       }
+       for (j=0;j<9;j++) {
+           for (i=0;i<9;i++) {
+               if (this.getGridData().getValue(i, j) == ' ') {
+                   this.setSolved(false);
+               }
+           }
+       }
     }
     
     public void fillDefinite(int i, int j) {
-        //String possibleSolutions = "Possible solutions: ";
         int x,numberOfSolutions;
         char v,solution;
         solution = 'X';
@@ -55,20 +68,14 @@ public class Solver {
         }
         if (numberOfSolutions == 1) {
                 grid.setValue(i, j, solution);
+                changes++;
             }
         System.out.println("POSSIBLE SOLUTIONS FOR Grid ["+i+","+j+"]");
         for (int z=0;z<9;z++) {
             if (this.getSolution(z) != 'X') {
-                //possibleSolutions += this.getSolution(z);
             System.out.println(this.getSolution(z));
             }
-            //System.out.println(possibleSolutions);
         }
-    }
-    
-    public void subGridDefinite(int i, int j) {
-        
-        
     }
     
     public void ownSubGridCompare(int i, int j) {
@@ -80,12 +87,8 @@ public class Solver {
         tempJ2 = tempJ*3;
         tempJ3 = tempJ2 + 3;
         for (tempJ2=tempJ*3;tempJ2<tempJ3;tempJ2++) {
-//            System.out.println("TempJ IS: "+tempJ2);
-//            System.out.println("J is: "+j);
             for (tempI2 = tempI*3;tempJ2<tempJ3;tempJ2++) {
                 for (s=0;s<9;s++) {
-//                    System.out.println("checking against possibilities");
-//                    System.out.println("Looking at Grid: ["+tempI2+","+tempJ2+"] solution element: "+this.getSolution(s));
                     if (this.getGridData().getValue(tempI2, tempJ2) == this.getSolution(s)) { 
                     this.setSolutions(s, 'X');
                     }
@@ -122,9 +125,7 @@ public class Solver {
         for (i=0;i<9;i++) {
             i2 = i + 1;
             v = Character.forDigit(i2,10);
-            //System.out.println(v);
             this.setSolutions(i, v);
-            //System.out.println(this.getSolution(i));
         }
     }
     
@@ -147,35 +148,13 @@ public class Solver {
     public GridData getGridData() {
         return grid;
     }
-//    public void eliminate(){
-//        //will include all 3 eliminate methods
-//    }
-//    
-//    public void definite(){
-//        //will invlude all 3 definite methods
-//    }
-//    
-//    public void rowEliminate() {
-//        
-//    }
-//    
-//    public void columnEliminate() {
-//        
-//    }
-//    
-//    public void subGridEliminate() {
-//        
-//    }
-//    
-//   public void rowDefinite() {
-//       
-//   } 
-//   
-//   public void columnDefinite() {
-//       
-//   }
-//   
-//   public void subGridDefinite() {
-//       
-//   }
+    
+    public void setSolved(boolean b) {
+        solved = b;
+    }
+    
+    public boolean getSolved() {
+        return solved;
+    }
+
 }

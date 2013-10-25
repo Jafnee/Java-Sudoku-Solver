@@ -18,6 +18,9 @@ public class GridData {
     Scanner myScanner;
     Solver solver;
     
+    /**
+     *
+     */
     public GridData() {
         grid = new char[9][9];
         this.setGrid();
@@ -25,24 +28,40 @@ public class GridData {
         solver.setGridData(this);
     }
     
+    /**
+     *
+     */
     public void setGrid() {
         int i,j;
         for (j=0;j<9;j++)
             for (i=0;i<9;i++)
                 this.setValue(i,j,' ');
-                //grid[i][j] = ' ';
-                
     }
     
+    /**
+     *
+     * @param i
+     * @param j
+     * @return
+     */
     public char getValue(int i, int j) {
                 return grid[i][j];
     }
 
     
+    /**
+     *
+     * @param i
+     * @param j
+     * @param v
+     */
     public void setValue(int i, int j, char v) {
         grid[i][j] = v;       
     }
     
+    /**
+     *
+     */
     public void clearGrid() {
         int i,j;
         for (j=0;j<9;j++)
@@ -50,6 +69,11 @@ public class GridData {
                 grid[i][j] = ' ';
     }
     
+    /**
+     *
+     * @param r
+     * @param s
+     */
     public void Transfer(int r, String s) {
         int i;
         char c1;
@@ -60,6 +84,12 @@ public class GridData {
         }
     }
     
+    /**
+     *
+     * @param file
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public void loadGrid(File file) throws FileNotFoundException, IOException {
         br = new BufferedReader(new FileReader(file));
         char c1;
@@ -70,6 +100,10 @@ public class GridData {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Solver getSolver() {
         return solver;
     }

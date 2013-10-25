@@ -6,11 +6,15 @@ package com.jafnee.sudoku.main;
 
 import com.jafnee.sudoku.graphic.MyFrame;
 
-/**
+/**This class is the main from which the program will start from.
  *
- * @author Jafnee
+ * @author Jafnee Jesmee
+ * @version 25/10/2013
  */
 
 public class Application {
-    MyFrame mf = new MyFrame();
+    
+    public static void main(String[] args) {
+        MyFrame mf = new MyFrame();
+    }
 }
