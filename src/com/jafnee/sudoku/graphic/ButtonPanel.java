@@ -76,6 +76,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     
     public void startSolver() {
         this.getGridPanel().gridData.getSolver().Solve();
+        this.getGridPanel().fillGrid();
     }
     
     public void setGridPanel(GridPanel gp) {
