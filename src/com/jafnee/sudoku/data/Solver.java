@@ -10,10 +10,11 @@ package com.jafnee.sudoku.data;
  */
 public class Solver {
     char[] solutions;
+    char[][][] storedSolutions;
     GridData grid;
     
     public Solver () {
-       //solutions = new char[10];
+       storedSolutions = new char[9][9][9];
     }
     
     public void Solve() {
@@ -29,18 +30,18 @@ public class Solver {
                 else {
                     solutions = new char[9];
                     this.fillSolutions();
-                    this.rowCompare(i);
-                    this.coloumnCompare(j);
+                    this.ownSubGridCompare(i, j);
+                    this.rowCompare(j);
+                    this.columnCompare(i);
                     this.fillDefinite(i, j);
-                }
-               
                     
-               
+                }
             }
         }
     }
     
     public void fillDefinite(int i, int j) {
+        //String possibleSolutions = "Possible solutions: ";
         int x,numberOfSolutions;
         char v,solution;
         solution = 'X';
@@ -57,50 +58,65 @@ public class Solver {
             }
         System.out.println("POSSIBLE SOLUTIONS FOR Grid ["+i+","+j+"]");
         for (int z=0;z<9;z++) {
+            if (this.getSolution(z) != 'X') {
+                //possibleSolutions += this.getSolution(z);
             System.out.println(this.getSolution(z));
+            }
+            //System.out.println(possibleSolutions);
         }
+    }
+    
+    public void subGridDefinite(int i, int j) {
+        
         
     }
     
-    public void rowCompare(int i) {
-        int j, s;        
-        for (j=0;j<9;j++) {
-            for (s=0;s<9;s++) {
-//            System.out.println("Square Value == [" + this.getGridData().getValue(i, j) + "]");
-//            System.out.println("getSolution(j) == " + this.getSolution(j));
-//            System.out.println("value == getSolution(j) is " + (this.getGridData().getValue(i, j) == getSolution(j)));
-            if (this.getGridData().getValue(i, j) == this.getSolution(s)) { // if value is equal to j in solution array
-                this.setSolutions(s, 'X'); // set solution j to 'X'
-//                System.out.println("Value "+this.getGridData().getValue(i, j)+"found at: ["+i+","+j+"]");
+    public void ownSubGridCompare(int i, int j) {
+        int tempI, tempI2, tempI3, tempJ, tempJ2, tempJ3, s;
+        tempI = i/3;
+        tempI2 = tempI*3;
+        tempI3 = tempI2 + 3;
+        tempJ = j/3;
+        tempJ2 = tempJ*3;
+        tempJ3 = tempJ2 + 3;
+        for (tempJ2=tempJ*3;tempJ2<tempJ3;tempJ2++) {
+//            System.out.println("TempJ IS: "+tempJ2);
+//            System.out.println("J is: "+j);
+            for (tempI2 = tempI*3;tempJ2<tempJ3;tempJ2++) {
+                for (s=0;s<9;s++) {
+//                    System.out.println("checking against possibilities");
+//                    System.out.println("Looking at Grid: ["+tempI2+","+tempJ2+"] solution element: "+this.getSolution(s));
+                    if (this.getGridData().getValue(tempI2, tempJ2) == this.getSolution(s)) { 
+                    this.setSolutions(s, 'X');
+                    }
+                }
             }
-        }
-            //System.out.println("LOL I DID NOTHING! For Grid: {"+i+","+j+"]");
         }
     }
     
-    public void coloumnCompare(int j) {
+    public void columnCompare(int i) {
+        int j, s;        
+        for (j=0;j<9;j++) {
+            for (s=0;s<9;s++) {
+            if (this.getGridData().getValue(i, j) == this.getSolution(s)) { // if value is equal to j in solution array
+                this.setSolutions(s, 'X'); // set solution j to 'X'
+                }
+            }
+        }
+    }
+    
+    public void rowCompare(int j) {
         int i, s;
         for (i=0;i<9;i++) {
             for (s=0;s<9;s++) {
             if (this.getGridData().getValue(i, j) == this.getSolution(s)) {
                 this.setSolutions(s, 'X');
-//                System.out.println("Value "+this.getGridData().getValue(i, j)+"found at: ["+i+","+j+"]");
-            }
-            //System.out.println("LOL I DID NOTHING! For Grid: {"+i+","+j+"]");
+                }
             }
         }
     }
     
     public void fillSolutions() {
-//        this.setSolutions(0, '1');
-//        this.setSolutions(1, '2');
-//        this.setSolutions(2, '3');
-//        this.setSolutions(3, '4');
-//        this.setSolutions(4, '5');
-//        this.setSolutions(5, '6');
-//        this.setSolutions(6, '7');
-//        this.setSolutions(7, '8');
-//        this.setSolutions(8, '9');
         int i,i2;
         char v;
         for (i=0;i<9;i++) {
