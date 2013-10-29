@@ -12,7 +12,7 @@ package com.jafnee.sudoku.graphic;
  */
 public class ContainerPanel extends javax.swing.JPanel {
 
-    MyFrame frame;
+    private MyFrame frame;
     /**
      * Creates new form ContainerPanel
      */

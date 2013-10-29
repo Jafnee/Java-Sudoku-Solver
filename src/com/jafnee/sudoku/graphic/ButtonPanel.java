@@ -22,9 +22,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 
 public class ButtonPanel extends JPanel implements ActionListener {
-    JButton load,solve,clear;
+    JButton load,solve;
     JFileChooser chooser;
-    GridPanel gridpanel;
+    GridPanel gridPanel;
     String currentFile;
     ContainerPanel panel;
     Solver solver;
@@ -78,8 +78,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             System.out.println(file);
-            gridpanel.gridData.loadGrid(file);
-            gridpanel.fillGrid();
+            gridPanel.gridData.loadGrid(file);
+            gridPanel.fillGrid();
             filePath = file.getName();
             this.setCurrentFile(filePath);
             this.getContainerPanel().getMyFrame().setTitle("File loaded: "+this.getCurrentFile());
@@ -105,11 +105,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
     }
     
     public void setGridPanel(GridPanel gp) {
-        gridpanel = gp;
+        gridPanel = gp;
     }
     
     public GridPanel getGridPanel() {
-        return gridpanel;
+        return gridPanel;
     }
     
     public void setCurrentFile(String f) {

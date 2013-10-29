@@ -16,8 +16,7 @@ import java.util.*;
  */
 public class GridData {
 
-    char grid[][];
-    char test;
+    char[][] grid;
     BufferedReader br;
     Scanner myScanner;
     Solver solver;
