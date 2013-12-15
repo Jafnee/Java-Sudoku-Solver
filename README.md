@@ -1,4 +1,4 @@
 Java-Sudoku-Solver
 ==================
 
-A java program that solves sudoku.
+A Java program that solves sudoku.
