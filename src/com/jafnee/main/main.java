@@ -6,6 +6,10 @@
 
 package com.jafnee.main;
 
+import com.jafnee.data.GridData;
+import com.jafnee.data.solver.Solver;
+import com.jafnee.graphic.ContainerPanel;
+
 /**
  *
  * @author Jafnee
@@ -16,7 +20,9 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Solver solver = new Solver();
+        GridData gridData = new GridData();
+        ContainerPanel containerPanel = new ContainerPanel();
     }
     
 }
