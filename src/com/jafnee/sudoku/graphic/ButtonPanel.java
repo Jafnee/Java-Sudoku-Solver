@@ -99,9 +99,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else {
             JOptionPane.showMessageDialog(null,"Could only be partially solved.","",JOptionPane.PLAIN_MESSAGE);
-        }
-        
-        
+        }     
     }
     
     public void setGridPanel(GridPanel gp) {
