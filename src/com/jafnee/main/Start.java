@@ -9,20 +9,21 @@ package com.jafnee.main;
 import com.jafnee.data.GridData;
 import com.jafnee.data.solver.Solver;
 import com.jafnee.graphic.ContainerPanel;
+import com.jafnee.graphic.MainFrame;
 
 /**
  *
  * @author Jafnee
  */
-public class main {
+public class Start {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Solver solver = new Solver();
         GridData gridData = new GridData();
-        ContainerPanel containerPanel = new ContainerPanel();
+        MainFrame mainFrame;
+        mainFrame = new MainFrame();
     }
     
 }

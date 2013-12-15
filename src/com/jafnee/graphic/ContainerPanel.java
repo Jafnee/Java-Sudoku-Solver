@@ -6,13 +6,16 @@
 
 package com.jafnee.graphic;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jafnee
  */
-public class ContainerPanel {
-    private ButtonPanel buttonPanel;
-    private GridPanel gridPanel;
+public class ContainerPanel extends JPanel {
+    private final ButtonPanel buttonPanel;
+    private final GridPanel gridPanel;
+    private JPanel panel;
     
     public ContainerPanel() {
         gridPanel = new GridPanel();
@@ -20,6 +23,6 @@ public class ContainerPanel {
     }
     
     public void createPanel() {
-        
+        panel = new JPanel();
     }
 }
