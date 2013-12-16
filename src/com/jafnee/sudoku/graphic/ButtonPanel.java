@@ -50,6 +50,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     }
     
     public void startSolver() {
+        getContainerPanel().getMainFrame().getMain().getGridModel().getSolver().solve();
 //        this.getGridPanel().gridData.getSolver().solve();
 //        this.getGridPanel().fillGrid();
 //        if (getGridPanel().gridData.getSolver().getSolved() == true) {
@@ -69,7 +70,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             System.out.println(file);
-            containerPanel.getMainFrame().getMain().getGridData().loadGrid(file);
+            containerPanel.getMainFrame().getMain().getGridModel().loadGrid(file);
             containerPanel.getGridPanel().fillGrid();
             filePath = file.getName();
             getContainerPanel().getMainFrame().setTitle("File loaded: "+filePath);

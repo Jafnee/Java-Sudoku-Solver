@@ -6,7 +6,7 @@
 
 package com.jafnee.sudoku.main;
 
-import com.jafnee.sudoku.data.GridData;
+import com.jafnee.sudoku.data.GridModel;
 import com.jafnee.sudoku.graphic.MainFrame;
 
 /**
@@ -14,15 +14,15 @@ import com.jafnee.sudoku.graphic.MainFrame;
  * @author Jafnee
  */
 public class Main {
-    private final GridData gridData;
+    private final GridModel gridData;
     private final MainFrame mainFrame;
     
     public Main() {
-        gridData = new GridData(this);
+        gridData = new GridModel(this);
         mainFrame = new MainFrame(this);
     }
     
-    public GridData getGridData() {
+    public GridModel getGridModel() {
         return gridData;
     }
     

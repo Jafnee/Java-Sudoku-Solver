@@ -15,18 +15,18 @@ import java.util.*;
  *
  * @author Jafnee
  */
-public class GridData {
+public class GridModel {
     Main main;
     Solver solver;
-    char[][] grid;
+    char[][] gridModel;
     BufferedReader br;
     Scanner myScanner;
     
-    public GridData(Main m) {
+    public GridModel(Main m) {
         main = m;
         solver = new Solver(this);
         
-        grid = new char[9][9];
+        gridModel = new char[9][9];
         setupGrid();
     }
     
@@ -40,11 +40,11 @@ public class GridData {
     }
     
     public char getValue(int i, int j) {
-        return grid[i][j];
+        return gridModel[i][j];
     }
     
     public void setValue(int i, int j, char v) {
-        grid[i][j] = v;
+        gridModel[i][j] = v;
     }
     
     /**
