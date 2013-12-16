@@ -6,7 +6,8 @@
 
 package com.jafnee.graphic;
 
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -15,14 +16,31 @@ import javax.swing.JPanel;
 public class ContainerPanel extends JPanel {
     private final ButtonPanel buttonPanel;
     private final GridPanel gridPanel;
-    private JPanel panel;
+    MainFrame mainFrame;
     
-    public ContainerPanel() {
-        gridPanel = new GridPanel();
-        buttonPanel = new ButtonPanel();
+    public ContainerPanel(MainFrame mf) {
+        mainFrame = mf;
+        gridPanel = new GridPanel(this);
+        buttonPanel = new ButtonPanel(this);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.5;
+        c.weighty = 0.5;
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(buttonPanel, c);
+        
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 5.5;
+        c.weighty = 5.5;
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(gridPanel, c);
     }
     
     public void createPanel() {
-        panel = new JPanel();
+        
     }
 }

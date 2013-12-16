@@ -6,10 +6,20 @@
 
 package com.jafnee.data;
 
+import com.jafnee.data.solver.Solver;
+import com.jafnee.main.Main;
+
 /**
  *
  * @author Jafnee
  */
 public class GridData {
+    Main main;
+    Solver solver;
     
+    public GridData(Main m) {
+        main = m;
+        solver = new Solver(this);
+        
+    }
 }

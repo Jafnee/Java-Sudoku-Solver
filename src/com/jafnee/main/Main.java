@@ -6,17 +6,16 @@
 
 package com.jafnee.main;
 
+import com.jafnee.data.GridData;
+import com.jafnee.graphic.MainFrame;
+
 /**
  *
  * @author Jafnee
  */
-public class Start {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Main main = new Main();
+public class Main {
+    public Main() {
+        GridData gridData = new GridData(this);
+        MainFrame mainFrame = new MainFrame(this);
     }
-    
 }

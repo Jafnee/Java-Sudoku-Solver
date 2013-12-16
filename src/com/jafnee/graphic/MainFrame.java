@@ -6,6 +6,8 @@
 
 package com.jafnee.graphic;
 
+import com.jafnee.data.solver.Solver;
+import com.jafnee.main.Main;
 import com.jafnee.main.Start;
 import javax.swing.JFrame;
 
@@ -15,13 +17,16 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame{
     private ContainerPanel containerPanel;
+    Main main;
     
-    public MainFrame() {
+    public MainFrame(Main m) {                        
+        main = m;
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        containerPanel = new ContainerPanel();
+        containerPanel = new ContainerPanel(this);
         this.add(containerPanel);
         this.setSize(600, 600);
-        this.setResizable(false);
+        //this.setResizable(false);
         this.setVisible(true);
     }
 }

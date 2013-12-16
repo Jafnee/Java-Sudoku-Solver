@@ -6,10 +6,18 @@
 
 package com.jafnee.data.solver;
 
+import com.jafnee.data.GridData;
+import com.jafnee.data.PossibleSolutions;
+
 /**
  *
  * @author Jafnee
  */
 public class Solver {
+    GridData gridData;
     
+    public Solver(GridData gd) {
+        gridData = gd;
+        
+    }
 }
