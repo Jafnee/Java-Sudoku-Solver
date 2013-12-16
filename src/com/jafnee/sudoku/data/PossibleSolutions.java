@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.jafnee.data;
+package com.jafnee.sudoku.data;
 /**
  *
  * @author Jafnee

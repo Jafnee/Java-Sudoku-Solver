@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.jafnee.data.solver;
+package com.jafnee.data.sudoku.solver;
 
-import com.jafnee.data.GridData;
-import com.jafnee.data.PossibleSolutions;
+import com.jafnee.sudoku.data.GridData;
+import com.jafnee.sudoku.data.PossibleSolutions;
 
 /**
  *
@@ -17,7 +17,10 @@ public class Solver {
     GridData gridData;
     
     public Solver(GridData gd) {
-        gridData = gd;
-        
+        gridData = gd;        
+    }
+    
+    public GridData getGridData() {
+        return gridData;
     }
 }

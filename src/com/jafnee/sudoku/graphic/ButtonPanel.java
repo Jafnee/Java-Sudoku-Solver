@@ -1,42 +1,31 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.jafnee.sudoku.graphic;
 
-import com.jafnee.sudoku.data.Solver;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.*;
 
-/**This class will be contain JButtons that the user will use to interact with the program.
+/**
  *
- * @author Jafnee Jesmee
- * @version 25/10/2013
+ * @author Jafnee
  */
-
 public class ButtonPanel extends JPanel implements ActionListener {
-    JButton load,solve;
-    JFileChooser chooser;
-    GridPanel gridPanel;
-    String currentFile;
-    ContainerPanel panel;
-    Solver solver;
+    private final ContainerPanel containerPanel;
+    private final JButton load,solve;
+    private JFileChooser chooser;
     
-    /**The default constructor will create the JButtons and adds them to the JPanel.
-     * The ActionListeners are also created.
-     * 
-     */
-    public ButtonPanel() {
+    public ButtonPanel(ContainerPanel cp) {
+        containerPanel = cp;
+        
         load = new JButton("Load");
         solve = new JButton("Solve");
-        //clear = new JButton("Clear");
         this.setLayout(new GridLayout(0,2));
         this.add(load);
         this.add(solve);
@@ -47,7 +36,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     }
     
     @Override
-   public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == load)
             try {
             this.loadFile();
@@ -57,19 +46,21 @@ public class ButtonPanel extends JPanel implements ActionListener {
             System.out.println("General I/O exception: " + ex.getMessage());
         }
         if (e.getSource() == solve)
-            this.startSolver();
-        //if (e.getSource() == clear)
-            //System.out.println("CLEAR");
+            this.startSolver();    
     }
-    /**The method makes use of the JFileChooser which will create a user friendly interface that the user can use to
-     * navigate to the file they want to open. The JFileChooser will only accept files with the .SUD extension.
-     * Once the file is selected, the program will begin to fill the grid will the data stored in the .SUD file and display it.
-     * It will also update the Title of the JFrame to show the current name of the file loaded up.
-     * 
-     * @throws FileNotFoundException
-     * @throws IOException 
-     */
-    public void loadFile() throws FileNotFoundException, IOException {
+    
+    public void startSolver() {
+//        this.getGridPanel().gridData.getSolver().solve();
+//        this.getGridPanel().fillGrid();
+//        if (getGridPanel().gridData.getSolver().getSolved() == true) {
+//            JOptionPane.showMessageDialog(null,"Has been fully solved","",JOptionPane.PLAIN_MESSAGE);
+//        }
+//        else {
+//            JOptionPane.showMessageDialog(null,"Could only be partially solved.","",JOptionPane.PLAIN_MESSAGE);
+//        }     
+    }
+    
+     public void loadFile() throws FileNotFoundException, IOException {
         chooser = new JFileChooser();
         String filePath;
         FileNameExtensionFilter filter = new FileNameExtensionFilter(".SUD Files","sud");
@@ -78,51 +69,16 @@ public class ButtonPanel extends JPanel implements ActionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             System.out.println(file);
-            gridPanel.gridData.loadGrid(file);
-            gridPanel.fillGrid();
+            containerPanel.getMainFrame().getMain().getGridData().loadGrid(file);
+            containerPanel.getGridPanel().fillGrid();
             filePath = file.getName();
-            this.setCurrentFile(filePath);
-            this.getContainerPanel().getMyFrame().setTitle("File loaded: "+this.getCurrentFile());
-            
+            getContainerPanel().getMainFrame().setTitle("File loaded: "+filePath);
+            //this.getContainerPanel().getMyFrame().setTitle("File loaded: "+this.getCurrentFile());
         }
     }
-    /**
-     * This method starts the solving method located in the Solver class.
-     * once solving is completed, it will check whether the puzzle is fully or partially solved and
-     * will give the appropriate message to the user.
-     */
-    public void startSolver() {
-        this.getGridPanel().gridData.getSolver().solve();
-        this.getGridPanel().fillGrid();
-        if (getGridPanel().gridData.getSolver().getSolved() == true) {
-            JOptionPane.showMessageDialog(null,"Has been fully solved","",JOptionPane.PLAIN_MESSAGE);
-        }
-        else {
-            JOptionPane.showMessageDialog(null,"Could only be partially solved.","",JOptionPane.PLAIN_MESSAGE);
-        }     
-    }
-    
-    public void setGridPanel(GridPanel gp) {
-        gridPanel = gp;
-    }
-    
-    public GridPanel getGridPanel() {
-        return gridPanel;
-    }
-    
-    public void setCurrentFile(String f) {
-        currentFile = f;
-    }
-    
-    public String getCurrentFile() {
-        return currentFile;
-    }
-    
-    public ContainerPanel getContainerPanel() {
-        return panel;
-    }
-    
-    public void setContainerPanel(ContainerPanel cp) {
-        panel = cp;
-    }
+     
+     public ContainerPanel getContainerPanel() {
+         return containerPanel;
+     }
 }
+

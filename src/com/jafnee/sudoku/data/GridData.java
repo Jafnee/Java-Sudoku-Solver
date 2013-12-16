@@ -1,44 +1,35 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.jafnee.sudoku.data;
 
+import com.jafnee.data.sudoku.solver.Solver;
+import com.jafnee.sudoku.main.Main;
 import java.io.*;
 import java.util.*;
 
 /**
- * This class is where all the Sudoku values will be loaded into and manipulated
- * from.
  *
- * @author Jafnee Jesmee
- * @version 25/10/2013
+ * @author Jafnee
  */
 public class GridData {
-
+    Main main;
+    Solver solver;
     char[][] grid;
     BufferedReader br;
     Scanner myScanner;
-    Solver solver;
-
-    /**
-     * The constructor will initialise the 2D array of type char and fill it's
-     * values with blanks. The object solver of the Solver class will also be
-     * initialised to link the GridData and Solver classes together; allowing
-     * for GridData to call Solver methods and vice-versa.
-     *
-     */
-    public GridData() {
+    
+    public GridData(Main m) {
+        main = m;
+        solver = new Solver(this);
+        
         grid = new char[9][9];
-        this.setupGrid();
-        solver = new Solver();
-        solver.setGridData(this);
+        setupGrid();
     }
-
-    /**
-     * Method to initially fill the grid array with blanks.
-     *
-     */
+    
     public void setupGrid() {
         int i, j;
         for (j = 0; j < 9; j++) {
@@ -47,35 +38,20 @@ public class GridData {
             }
         }
     }
-
-    /**
-     * Returns the char value of a specific element in the char array.
-     *
-     * @param i i coordinate
-     * @param j j coordinate
-     * @return char value returned
-     */
+    
     public char getValue(int i, int j) {
         return grid[i][j];
     }
-
-    /**
-     * Sets the value of a specific element in the char array.
-     *
-     * @param i i coordinate
-     * @param j j coordinate
-     * @param v char value to input
-     */
+    
     public void setValue(int i, int j, char v) {
         grid[i][j] = v;
     }
-
+    
     /**
-     * Transfers values loaded from the .SUD file line by line into the char
-     * array. .charAt() was used to extract specific characters from the line.
-     *
-     * @param j j coordinate
-     * @param s A line from the .SUD file.
+     * Used to convert the String acquired from loading into a char, to put into
+     * the array.
+     * @param j The j coordinate of the square.
+     * @param s The value that will will go into the square.
      */
     public void transfer(int j, String s) {
         int i;
@@ -86,13 +62,7 @@ public class GridData {
 
         }
     }
-
-    /**
-     * Loads the .SUD file and stores a line of it to be used by transfer() method
-     *
-     * @param file is the .SUD file chosen by the user to be loaded.
-     * 
-     */
+    
     public void loadGrid(File file) throws FileNotFoundException, IOException {
         br = new BufferedReader(new FileReader(file));
         char c1;
@@ -102,7 +72,11 @@ public class GridData {
             this.transfer(j, line);
         }
     }
-   
+    
+    public Main getMain() {
+        return main;
+    }
+    
     public Solver getSolver() {
         return solver;
     }

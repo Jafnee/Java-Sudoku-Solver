@@ -1,43 +1,32 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.jafnee.sudoku.graphic;
 
-import com.jafnee.sudoku.data.GridData;
-import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
-/**This JPanel will visually present the Sudoku grid to the user.
- * 
+/**
  *
- * @author Jafnee Jesmee
- * @version 25/10/2013
+ * @author Jafnee
  */
 public class GridPanel extends JPanel {
+    ContainerPanel containerPanel;
     JLabel[][] gridBoxes;
-    GridData gridData;
     
-    /**
-     * The default constructor initialises the JLabel 2D array.
-     * The 2D array will contain and display the value of the square.
-     * It also will executes the methods needed to make the Sudoku grid visible.
-     */
-    public GridPanel() {
+    public GridPanel(ContainerPanel cp) {
+        containerPanel = cp;
+        
         gridBoxes = new JLabel[9][9];
-        gridData = new GridData();
         this.setLayout(new GridLayout(9,9));
         this.makeGrid();
-        this.fillGrid();
+        //this.fillGrid();
     }
     
-    /**
-     * This method will create a 9x9 grid of blanks.
-     */
     public void makeGrid() {
         int i,j;
         for (j=0;j<9;j++) {
@@ -55,22 +44,6 @@ public class GridPanel extends JPanel {
         }
     }
     
-    /**Method to set the value of a specific JLabel
-     * 
-     * @param i i coordinate
-     * @param j j coordinate
-     * @param c char value 
-     */
-    public void setGridValue(int i, int j, char c) {
-        String v = Character.toString(c);
-        gridBoxes[i][j].setText(v);
-    }
-    
-    /**Colour coordinates the grid by each 3x3 sub-grid; makes it easier to the user to navigate visually.
-     * 
-     * @param i i coordinate
-     * @param j j coordinate
-     */
     public void colourGrid(int i, int j) {
         if((i / 3 < 1 || i / 3 >= 2) && (j / 3 < 1 || j / 3 >= 2)
                     || (i / 3 >= 1 && i / 3 < 2) && (j / 3 >= 1 && j / 3 < 2)) {
@@ -81,17 +54,21 @@ public class GridPanel extends JPanel {
         gridBoxes[i][j].setOpaque(true);
     }
     
-    /**
-     * This method will transfer the values of the grid[][] array from the GridData class into the JLabels.
-     */
     public void fillGrid(){
         int i,j;
         char value;
         for (j=0;j<9;j++) {
             for (i=0;i<9;i++) {
-                value = gridData.getValue(i, j);
-                this.setGridValue(i,j,value);
+                value = containerPanel.getMainFrame().getMain().getGridData().getValue(i, j);
+                //value = gridData.getValue(i, j);
+                setGridValue(i, j, value);
+                //this.setGridValue(i,j,value);
             }
         }
+    }
+    
+    public void setGridValue(int i, int j, char c) {
+        String v = Character.toString(c);
+        gridBoxes[i][j].setText(v);
     }
 }

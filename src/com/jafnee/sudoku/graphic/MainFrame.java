@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package com.jafnee.graphic;
+package com.jafnee.sudoku.graphic;
 
-import com.jafnee.data.solver.Solver;
-import com.jafnee.main.Main;
-import com.jafnee.main.Start;
+import com.jafnee.data.sudoku.solver.Solver;
+import com.jafnee.sudoku.main.Main;
+import com.jafnee.sudoku.main.Start;
 import javax.swing.JFrame;
 
 /**
@@ -16,17 +16,27 @@ import javax.swing.JFrame;
  * @author Jafnee
  */
 public class MainFrame extends JFrame{
-    private ContainerPanel containerPanel;
-    Main main;
+    private final ContainerPanel containerPanel;
+    private final Main main;
     
     public MainFrame(Main m) {                        
         main = m;
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         containerPanel = new ContainerPanel(this);
-        this.add(containerPanel);
-        this.setSize(600, 600);
+        add(containerPanel);
+        setSize(600, 600);
         //this.setResizable(false);
-        this.setVisible(true);
+        setVisible(true);
+        setTitle("File loaded: No file loaded");
     }
+    
+    public Main getMain() {
+        return main;
+    }
+    
+    public ContainerPanel getContainerPanel() {
+        return containerPanel;
+    }    
+    
 }
