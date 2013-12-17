@@ -29,6 +29,7 @@ public class Solver {
                 if (currentValue == ' ') {
                     compareRow(i,j);
                     compareColumn(i,j);
+                    subGridCompare(i,j);
                     fillDefinite(i, j);
                 }
             }
@@ -49,31 +50,54 @@ public class Solver {
         }
     }
     
-    public void compareRow(int i2, int j) {
+    public void compareRow(int i, int j) {
         char currentValue;
         int currentValuePosition;
-        for (int i = 0 ; i < 9 ; i++) {
-            currentValue = getGridModel().getValue(i, j);
+        for (int i2 = 0 ; i2 < 9 ; i2++) {
+            currentValue = getGridModel().getValue(i2, j);
             if (currentValue != ' ') {
                 currentValuePosition = (Character.getNumericValue(currentValue)) - 1;
-                possibleSolutions.setPSolution(i2,j,currentValuePosition,'X');
+                possibleSolutions.setPSolution(i,j,currentValuePosition,'X');
             }
         }
     }
     
-    public void compareColumn(int i, int j2) {
+    public void compareColumn(int i, int j) {
         char currentValue;
         int currentValuePosition;
-        for (int j = 0 ; j < 9 ; j++) {
-            currentValue = getGridModel().getValue(i, j);
+        for (int j2 = 0 ; j2 < 9 ; j2++) {
+            currentValue = getGridModel().getValue(i, j2);
             if (currentValue != ' ') {
                 currentValuePosition = (Character.getNumericValue(currentValue)) - 1;
-                possibleSolutions.setPSolution(i,j2,currentValuePosition,'X');
+                possibleSolutions.setPSolution(i,j,currentValuePosition,'X');
             }
         }
+    }
+    
+    public  void subGridCompare(int i, int j) {
+       char currentValue;
+       int currentValuePosition;
+       int i2Min, j2Min, i2Max, j2Max;
+       j2Min = ((j/3)*3);
+       j2Max = j2Min + 3;
+       i2Min = ((i/3)*3);
+       i2Max = i2Min + 3;
+       for (int j2 = j2Min; j2 < j2Max ; j2++ ) {
+           for (int i2 = i2Min; i2 < i2Max ; i2++) {
+               currentValue = getGridModel().getValue(i2, j2);
+               if (currentValue != ' ') {
+                   currentValuePosition = (Character.getNumericValue(currentValue)) - 1;
+                   possibleSolutions.setPSolution(i, j, currentValuePosition, 'X');
+               }
+           }
+       }
     }
     
     public GridModel getGridModel() {
         return gridModel;
+    }
+    
+    public PossibleSolutions getPossibleSolutions() {
+        return possibleSolutions;
     }
 }

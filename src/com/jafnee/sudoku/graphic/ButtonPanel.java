@@ -67,6 +67,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             System.out.println(file);
             containerPanel.getMainFrame().getMain().getGridModel().loadGrid(file);
             containerPanel.getGridView().fillGrid();
+            containerPanel.getMainFrame().getMain().getGridModel().getSolver().getPossibleSolutions().setPSolutions();
             filePath = file.getName();
             getContainerPanel().getMainFrame().setTitle("File loaded: "+filePath);
             //this.getContainerPanel().getMyFrame().setTitle("File loaded: "+this.getCurrentFile());
