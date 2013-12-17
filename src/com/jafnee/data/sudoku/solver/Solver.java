@@ -27,7 +27,9 @@ public class Solver {
             for (int i = 0; i < 9 ; i++) {
                 currentValue = getGridModel().getValue(i, j);
                 if (currentValue == ' ') {
-                fillDefinite(i, j);
+                    compareRow(i,j);
+                    compareColumn(i,j);
+                    fillDefinite(i, j);
                 }
             }
         }
@@ -47,11 +49,28 @@ public class Solver {
         }
     }
     
-    public boolean compareRow(int j, char c) {
-//        for (int i = 0 ; i < 9 ; i++) {
-//            if ()
-//        }
-        return true;
+    public void compareRow(int i2, int j) {
+        char currentValue;
+        int currentValuePosition;
+        for (int i = 0 ; i < 9 ; i++) {
+            currentValue = getGridModel().getValue(i, j);
+            if (currentValue != ' ') {
+                currentValuePosition = (Character.getNumericValue(currentValue)) - 1;
+                possibleSolutions.setPSolution(i2,j,currentValuePosition,'X');
+            }
+        }
+    }
+    
+    public void compareColumn(int i, int j2) {
+        char currentValue;
+        int currentValuePosition;
+        for (int j = 0 ; j < 9 ; j++) {
+            currentValue = getGridModel().getValue(i, j);
+            if (currentValue != ' ') {
+                currentValuePosition = (Character.getNumericValue(currentValue)) - 1;
+                possibleSolutions.setPSolution(i,j2,currentValuePosition,'X');
+            }
+        }
     }
     
     public GridModel getGridModel() {

@@ -20,15 +20,15 @@ public class PossibleSolutions {
     public void setPSolutions() {
         for (int j = 0 ; j < 9 ; j++) {
             for (int i = 0; i < 9 ; i++) {
-                setPSolution(i, j,0, '1');
-                setPSolution(i, j,1, '2');
-                setPSolution(i, j,2, '3');
-                setPSolution(i, j,3, '4');
-                setPSolution(i, j,4, '5');
-                setPSolution(i, j,5, '6');
-                setPSolution(i, j,6, '7');
-                setPSolution(i, j,7, '8');
-                setPSolution(i, j,8, '9');
+                setPSolution(i, j, 0, '1');
+                setPSolution(i, j, 1, '2');
+                setPSolution(i, j, 2, '3');
+                setPSolution(i, j, 3, '4');
+                setPSolution(i, j, 4, '5');
+                setPSolution(i, j, 5, '6');
+                setPSolution(i, j, 6, '7');
+                setPSolution(i, j, 7, '8');
+                setPSolution(i, j, 8, '9');
             }
         }
     }
