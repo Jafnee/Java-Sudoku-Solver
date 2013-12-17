@@ -14,17 +14,16 @@ import javax.swing.border.*;
  *
  * @author Jafnee
  */
-public class GridPanel extends JPanel {
+public class GridView extends JPanel {
     ContainerPanel containerPanel;
     JLabel[][] gridView;
     
-    public GridPanel(ContainerPanel cp) {
+    public GridView(ContainerPanel cp) {
         containerPanel = cp;
         
         gridView = new JLabel[9][9];
         this.setLayout(new GridLayout(9,9));
         this.makeGrid();
-        //this.fillGrid();
     }
     
     public void makeGrid() {
@@ -60,9 +59,7 @@ public class GridPanel extends JPanel {
         for (j=0;j<9;j++) {
             for (i=0;i<9;i++) {
                 value = containerPanel.getMainFrame().getMain().getGridModel().getValue(i, j);
-                //value = gridData.getValue(i, j);
                 setGridValue(i, j, value);
-                //this.setGridValue(i,j,value);
             }
         }
     }

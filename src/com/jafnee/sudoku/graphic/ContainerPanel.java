@@ -15,12 +15,12 @@ import javax.swing.*;
  */
 public class ContainerPanel extends JPanel {
     private final ButtonPanel buttonPanel;
-    private final GridPanel gridPanel;
+    private final GridView gridView;
     private final MainFrame mainFrame;
     
     public ContainerPanel(MainFrame mf) {
         mainFrame = mf;
-        gridPanel = new GridPanel(this);
+        gridView = new GridView(this);
         buttonPanel = new ButtonPanel(this);
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -37,7 +37,7 @@ public class ContainerPanel extends JPanel {
         c.weighty = 5.5;
         c.gridx = 0;
         c.gridy = 1;
-        this.add(gridPanel, c);
+        this.add(gridView, c);
     }
     
     public void createPanel() {
@@ -52,7 +52,7 @@ public class ContainerPanel extends JPanel {
         return buttonPanel;
     }
     
-    public GridPanel getGridPanel() {
-        return gridPanel;
+    public GridView getGridView() {
+        return gridView;
     }
 }

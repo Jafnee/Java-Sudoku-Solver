@@ -14,19 +14,36 @@ import com.jafnee.sudoku.data.GridModel;
  */
 public class Solver {
     private final GridModel gridModel;
+    private final PossibleSolutions possibleSolutions;
     
     public Solver(GridModel gd) {
-        gridModel = gd;        
+        gridModel = gd;
+        possibleSolutions = new PossibleSolutions();
     }
     
     public void solve() {
-        char value;
-        System.out.println("SOLVE!");
+        char currentValue;
         for (int j = 0 ; j < 9 ; j++) {
             for (int i = 0; i < 9 ; i++) {
-                value = getGridModel().getValue(i, j);
-                System.out.println(value);
+                currentValue = getGridModel().getValue(i, j);
+                if (currentValue == ' ') {
+                fillDefinite(i, j);
+                }
             }
+        }
+    }
+    
+    public void fillDefinite(int i, int j) {
+        char definiteSolution = 0;
+        int noOfPSolutions = 0;
+        for (int n = 0 ; n < 9 ; n++) {
+            if (possibleSolutions.getPSolution(i, j, n) != 'X') {
+                noOfPSolutions++;
+                definiteSolution = possibleSolutions.getPSolution(i, j, n);
+            }
+        }
+        if (noOfPSolutions == 1) {
+            getGridModel().setValue(i, j, definiteSolution);
         }
     }
     

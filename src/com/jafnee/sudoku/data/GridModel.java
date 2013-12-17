@@ -15,7 +15,7 @@ import java.util.*;
  *
  * @author Jafnee
  */
-public class GridModel {
+public final class GridModel {
     Main main;
     Solver solver;
     char[][] gridModel;
