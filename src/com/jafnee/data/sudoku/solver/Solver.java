@@ -15,6 +15,7 @@ import com.jafnee.sudoku.data.GridModel;
 public class Solver {
     private final GridModel gridModel;
     private final PossibleSolutions possibleSolutions;
+    boolean canContinue;
     
     public Solver(GridModel gd) {
         gridModel = gd;
@@ -22,6 +23,7 @@ public class Solver {
     }
     
     public void solve() {
+        canContinue = false;
         char currentValue;
         for (int j = 0 ; j < 9 ; j++) {
             for (int i = 0; i < 9 ; i++) {
@@ -33,6 +35,9 @@ public class Solver {
                     fillDefinite(i, j);
                 }
             }
+        }
+        if (canContinue) {
+            solve();
         }
     }
     
@@ -47,6 +52,7 @@ public class Solver {
         }
         if (noOfPSolutions == 1) {
             getGridModel().setValue(i, j, definiteSolution);
+            canContinue = true;
         }
     }
     
