@@ -34,7 +34,7 @@ public class Solver {
                     compareSubGrid(i,j);
                     onlySolutionRow();
                     onlySolutionColoumn();
-//                    onlySolutionSubGrid();
+                    onlySolutionSubGrid();
                     fillDefinite(i, j);
                 }
             }
@@ -104,17 +104,48 @@ public class Solver {
     }
     
     public void onlySolutionSubGrid() {
-        boolean loop = true;
+        char currentSolution, comparedSolution;
+        int currentSolutionPosition, comparedSolutionPosition, noOfSolution;
         int i, iMax = 3, iMin = 0, j, jMax = 3, jMin = 0;
-        while (loop) {
+        while (jMax < 10) {
             for (j = jMin ; j < jMax ; j++) {
                 for (i = iMin ; i  < iMax ; i++) {
                     if (getGridModel().getValue(i, j) == ' ') {
                         for (int n = 0 ; n < 9 ; n++) {
-                            
+                            currentSolution = possibleSolutions.getPSolution(i, j, n);
+                            if (currentSolution != 'X') {
+                                currentSolutionPosition = (Character.getNumericValue(currentSolution)) - 1;
+                                noOfSolution = 0;
+                                for (int j2 = jMin ; j2 < jMax ; j2++) {
+                                    for (int i2 = iMin ; i2 < iMax ; i2++) {
+                                        for (int n2 = 0; n2 < 9 ; n2++) {
+                                            comparedSolution = possibleSolutions.getPSolution(i2, j2, n2);
+                                            comparedSolutionPosition = (Character.getNumericValue(comparedSolution)) - 1;
+                                            if (currentSolutionPosition == comparedSolutionPosition) {
+                                                noOfSolution++;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (noOfSolution == 1) {
+                                    for (int n3 = 0 ; n3 < 9 ; n3++) {
+                                        possibleSolutions.setPSolution(i, j, n3, 'X');
+                                    }
+                                    possibleSolutions.setPSolution(i, j, currentSolutionPosition, currentSolution);
+                                }
+                            }
                         }
                     }
                 }
+            }
+            if (iMax < 9 ) {
+                iMin = iMin + 3;
+                iMax = iMax + 3;
+            } else {
+                iMin = 0;
+                iMax = 3;
+                jMin = jMin + 3;
+                jMax = jMax + 3;
             }
         }
     }
@@ -140,7 +171,7 @@ public class Solver {
                             }
                         }
                         if (noOfSolution == 1) {
-                            for(int n3 = 0; n < 9 ; n++) {
+                            for (int n3 = 0; n3 < 9 ; n3++) {
                                 possibleSolutions.setPSolution(i, j, n3, 'X');
                             }
                             possibleSolutions.setPSolution(i,j,currentSolutionPosition,currentSolution);
@@ -173,7 +204,7 @@ public class Solver {
                             }
                         }
                         if (noOfSolution == 1) {getGridModel().setValue(i, j, currentSolution);
-                            for(int n3 = 0; n < 9 ; n++) {
+                            for(int n3 = 0; n3 < 9 ; n3++) {
                                 possibleSolutions.setPSolution(i, j, n3, 'X');
                             }
                             possibleSolutions.setPSolution(i,j,currentSolutionPosition,currentSolution);
