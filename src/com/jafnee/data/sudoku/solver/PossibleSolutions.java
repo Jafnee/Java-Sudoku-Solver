@@ -11,8 +11,10 @@ package com.jafnee.data.sudoku.solver;
  */
 public class PossibleSolutions {
     private char[][][] solutions;
+    private Solver solver;
     
-    public PossibleSolutions() {
+    public PossibleSolutions(Solver s) {
+        solver = s;
         solutions = new char[9][9][9];
         setPSolutions();
     }
@@ -39,5 +41,36 @@ public class PossibleSolutions {
     
     public char getPSolution(int i, int j, int n) {
         return solutions[i][j][n];
+    }
+    
+    public char[][][] getSolutions() {
+        return solutions;
+    }
+    
+    public void printPSolutions() {
+        String coord = "";
+        String solutions = "";
+        for (int j = 0 ; j < 9 ; j++) {
+            for (int i = 0 ; i < 9 ; i++) {
+                solutions = "";
+                if (getSolver().getGridModel().getValue(i, j) == ' ') {
+                    coord = "["+i+","+j+"]";
+                    for (int n = 0 ; n < 9 ; n++) {
+                        if (getPSolution(i,j,n) != 'X') {
+                            solutions = solutions + getPSolution(i,j,n) + ",";
+                        }
+                    }
+                    System.out.println(coord+" "+solutions);
+                } else {
+                    coord ="";
+                    System.out.println(getSolver().getGridModel().getValue(i, j));
+                }
+                
+            }
+        }
+    }
+    
+    public Solver getSolver() {
+        return solver;
     }
 }
