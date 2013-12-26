@@ -28,6 +28,8 @@ public class GridView extends JPanel {
     
     public void makeGrid() {
         int i,j;
+   
+        
         for (j=0;j<9;j++) {
             for (i=0;i<9;i++) {
                 gridView[i][j] = new JLabel();
